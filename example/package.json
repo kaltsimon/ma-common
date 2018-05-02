@@ -1,0 +1,22 @@
+{
+  "name": "ma-common-example",
+  "homepage": "https://kaltsimon.github.io/ma-common",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "@material-ui/icons": "^1.0.0-beta.43",
+    "ma-common": "link:..",
+    "material-ui": "^1.0.0-beta.44",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "^1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

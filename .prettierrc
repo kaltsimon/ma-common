@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "files": "*.{tsx,ts,js,jsx}",
+      "options": {
+        "parser": "typescript",
+        "singleQuote": true,
+        "trailingComma": "es5"
+      }
+    }
+  ]
+}
