@@ -4,6 +4,9 @@ import Headline from './Headline';
 import Seal from './Seal';
 import SealContainer from './SealContainer';
 import SealIcon from './SealIcon';
+import Sidebar from './Sidebar';
+import SidebarCitation from './SidebarCitation';
+import SidebarContainer from './SidebarContainer';
 import Subheading from './Subheading';
 import TypographyWithMargin from './TypographyWithMargin';
 
@@ -16,4 +19,7 @@ export {
   Headline,
   Subheading,
   TypographyWithMargin,
+  Sidebar,
+  SidebarContainer,
+  SidebarCitation,
 };
