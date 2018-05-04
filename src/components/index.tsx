@@ -9,6 +9,7 @@ import SidebarCitation from './SidebarCitation';
 import SidebarContainer from './SidebarContainer';
 import Subheading from './Subheading';
 import TypographyWithMargin from './TypographyWithMargin';
+import DefaultPaper from './DefaultPaper';
 
 export {
   Seal,
@@ -22,4 +23,5 @@ export {
   Sidebar,
   SidebarContainer,
   SidebarCitation,
+  DefaultPaper,
 };
