@@ -4,6 +4,8 @@ import {
   NotInterested,
   VerifiedUser,
 } from '@material-ui/icons';
+import { withStyles } from 'material-ui';
+import { StyledComponentProps, WithStyles } from 'material-ui/styles';
 import * as React from 'react';
 import { pure } from 'recompose';
 
@@ -27,25 +29,53 @@ const colors = {
   indeterminate: '#cccccc',
 };
 
-const SealIcon = pure(({ validationResult }: SealIconProps) => {
-  if (!validationResult) {
-    return null;
-  }
-
-  switch (validationResult.type) {
-    case ANSWER_ACCEPTED:
-      return <VerifiedUser nativeColor={colors.valid} />;
-    case ID_INVALID:
-    case HASH_INVALID:
-      return <ErrorOutline nativeColor={colors.invalid} />;
-    case NO_ANSWER_YET:
-      return <HourglassEmpty nativeColor={colors.indeterminate} />;
-    case ANSWER_REJECTED:
-      return <NotInterested nativeColor={colors.invalid} />;
-    case HASH_DOESNT_EXIST:
-    default:
-      return null;
-  }
+const decorator = withStyles({
+  root: {
+    fontSize: 18,
+  },
 });
+
+export { StyledComponentProps };
+const SealIcon = pure(
+  decorator(
+    ({ validationResult, classes }: SealIconProps & WithStyles<'root'>) => {
+      if (!validationResult) {
+        return null;
+      }
+
+      switch (validationResult.type) {
+        case ANSWER_ACCEPTED:
+          return (
+            <VerifiedUser className={classes.root} nativeColor={colors.valid} />
+          );
+        case ID_INVALID:
+        case HASH_INVALID:
+          return (
+            <ErrorOutline
+              className={classes.root}
+              nativeColor={colors.invalid}
+            />
+          );
+        case NO_ANSWER_YET:
+          return (
+            <HourglassEmpty
+              className={classes.root}
+              nativeColor={colors.indeterminate}
+            />
+          );
+        case ANSWER_REJECTED:
+          return (
+            <NotInterested
+              className={classes.root}
+              nativeColor={colors.invalid}
+            />
+          );
+        case HASH_DOESNT_EXIST:
+        default:
+          return null;
+      }
+    }
+  )
+);
 
 export default SealIcon;
