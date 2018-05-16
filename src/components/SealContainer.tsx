@@ -10,6 +10,8 @@ export interface SealContainerProps {
   text: string;
   domElement: HTMLElement;
   validationResult?: ValidationResult;
+  onMouseEnter?: React.MouseEventHandler<any>;
+  onMouseLeave?: React.MouseEventHandler<any>;
 }
 
 export type State = SealContainerProps;
@@ -49,12 +51,18 @@ export default class SealContainer extends React.PureComponent<
     }
   }
 
-  onMouseEnter = () => {
+  onMouseEnter: React.MouseEventHandler<any> = event => {
     addClass(this.state.domElement, `hover`);
+    if (typeof this.props.onMouseEnter === 'function') {
+      this.props.onMouseEnter(event);
+    }
   };
 
-  onMouseLeave = () => {
+  onMouseLeave: React.MouseEventHandler<any> = event => {
     removeClass(this.state.domElement, `hover`);
+    if (typeof this.props.onMouseLeave === 'function') {
+      this.props.onMouseLeave(event);
+    }
   };
 
   render() {
