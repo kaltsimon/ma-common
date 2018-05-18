@@ -1,7 +1,7 @@
 import * as React from 'react';
 import withStyles, {
   StyledComponentProps,
-} from 'material-ui/styles/withStyles';
+} from '@material-ui/core/styles/withStyles';
 
 import { CitationState } from '../lib/state';
 import Seal from './Seal';

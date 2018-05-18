@@ -1,9 +1,5 @@
-import MUIDivider, { DividerProps } from 'material-ui/Divider';
-import {
-  WithStyles,
-  withStyles,
-  StyledComponentProps,
-} from 'material-ui/styles';
+import MUIDivider from '@material-ui/core/Divider';
+import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
 import * as React from 'react';
 import { pure } from 'recompose';
 
@@ -16,10 +12,8 @@ const decorate = withStyles(theme => ({
 
 export { StyledComponentProps };
 
-const Divider = decorate(
-  ({ classes, ...rest }: DividerProps & WithStyles<'divider'>) => (
-    <MUIDivider className={classes.divider} {...rest} />
-  )
-);
+const Divider = decorate(({ classes }) => (
+  <MUIDivider className={classes.divider} />
+));
 
 export default pure(Divider);

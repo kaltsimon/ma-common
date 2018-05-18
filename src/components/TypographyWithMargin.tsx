@@ -1,5 +1,5 @@
-import { WithStyles, withStyles } from 'material-ui/styles';
-import Typography, { TypographyProps } from 'material-ui/Typography';
+import { WithStyles, withStyles } from '@material-ui/core/styles';
+import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import * as React from 'react';
 import { pure } from 'recompose';
 

@@ -1,4 +1,4 @@
-import { TypographyProps } from 'material-ui/Typography';
+import { TypographyProps } from '@material-ui/core/Typography';
 import * as React from 'react';
 import { pure } from 'recompose';
 

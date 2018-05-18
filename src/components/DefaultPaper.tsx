@@ -1,5 +1,9 @@
-import Paper from 'material-ui/Paper';
-import { StyledComponentProps, withStyles } from 'material-ui/styles';
+import Paper, { PaperProps } from '@material-ui/core/Paper';
+import {
+  StyledComponentProps,
+  WithStyles,
+  withStyles,
+} from '@material-ui/core/styles';
 import * as React from 'react';
 
 const decorate = withStyles(theme => ({
@@ -14,10 +18,12 @@ const decorate = withStyles(theme => ({
 
 export { StyledComponentProps };
 
-const DefaultPaper = decorate<{}>(({ classes, children }) => (
-  <Paper className={classes.paper} elevation={4}>
-    {children}
-  </Paper>
-));
+const DefaultPaper = decorate<PaperProps & StyledComponentProps<'paper'>>(
+  ({ classes, children, ...rest }: PaperProps & WithStyles<'paper'>) => (
+    <Paper className={classes.paper} elevation={4} {...rest}>
+      {children}
+    </Paper>
+  )
+);
 
 export default DefaultPaper;
