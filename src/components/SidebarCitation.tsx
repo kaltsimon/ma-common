@@ -1,11 +1,11 @@
+import { StyledComponentProps } from '@material-ui/core/styles';
 import * as React from 'react';
-import withStyles, {
-  StyledComponentProps,
-} from '@material-ui/core/styles/withStyles';
 
+import { withStylesPure } from '..';
+import { ANSWER_ACCEPTED } from '../db-results';
 import { CitationState } from '../lib/state';
 import Seal from './Seal';
-import { ANSWER_ACCEPTED } from '../db-results';
+import { extractColors } from './SealIcon';
 
 type Props = CitationState & {
   onMouseEnter?: React.MouseEventHandler<any>;
@@ -15,7 +15,7 @@ type Props = CitationState & {
 export const VALID_BG_COLOR = 'hsla(120, 100%, 90%, 1)';
 export const INVALID_BG_COLOR = 'hsla(0, 90%, 90%, 1)';
 
-const decorate = withStyles({
+const decorate = withStylesPure({
   valid: {
     backgroundColor: VALID_BG_COLOR,
   },
@@ -26,8 +26,8 @@ const decorate = withStyles({
 
 export { StyledComponentProps };
 
-const SidebarCitation = decorate<Props>(
-  ({
+const SidebarCitation = decorate<Props>(props => {
+  const {
     hash,
     text,
     validationResult,
@@ -35,7 +35,9 @@ const SidebarCitation = decorate<Props>(
     onMouseEnter,
     onMouseLeave,
     classes,
-  }) => (
+  } = props;
+  const { colors } = extractColors(props);
+  return (
     <li
       onMouseEnter={onMouseEnter || (() => {})}
       onMouseLeave={onMouseLeave || (() => {})}
@@ -52,9 +54,9 @@ const SidebarCitation = decorate<Props>(
       >
         {text}
       </span>
-      <Seal hash={hash} validationResult={validationResult} />
+      <Seal hash={hash} validationResult={validationResult} {...colors} />
     </li>
-  )
-);
+  );
+});
 
 export default SidebarCitation;
