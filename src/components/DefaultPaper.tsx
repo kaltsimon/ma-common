@@ -1,10 +1,7 @@
-import Paper, { PaperProps } from '@material-ui/core/Paper';
-import {
-  StyledComponentProps,
-  WithStyles,
-  withStyles,
-} from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
 import * as React from 'react';
+import { pure } from 'recompose';
 
 const decorate = withStyles(theme => ({
   paper: theme.mixins.gutters({
@@ -18,12 +15,12 @@ const decorate = withStyles(theme => ({
 
 export { StyledComponentProps };
 
-const DefaultPaper = decorate<PaperProps & StyledComponentProps<'paper'>>(
-  ({ classes, children, ...rest }: PaperProps & WithStyles<'paper'>) => (
-    <Paper className={classes.paper} elevation={4} {...rest}>
+const DefaultPaper = pure(
+  decorate(({ classes, children }) => (
+    <Paper className={classes.paper} elevation={4}>
       {children}
     </Paper>
-  )
+  ))
 );
 
 export default DefaultPaper;
