@@ -44,6 +44,7 @@ const SidebarCitation = decorate<Props>(props => {
       onMouseLeave={onMouseLeave || (() => {})}
     >
       {/* TODO: more states */}
+      <Seal hash={hash} validationResult={validationResult} {...colors} />
       <span
         className={
           hover
@@ -55,7 +56,6 @@ const SidebarCitation = decorate<Props>(props => {
       >
         {text}
       </span>
-      <Seal hash={hash} validationResult={validationResult} {...colors} />
     </li>
   );
 });
