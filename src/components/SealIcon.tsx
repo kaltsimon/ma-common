@@ -69,7 +69,7 @@ const decorator = withStyles({
 const hoc: ComponentEnhancer<
   SealIconProps & SealIconColors & WithStyles<'root'>,
   SealIconProps & Partial<SealIconColors> & StyledComponentProps<'root'>
-> = compose(pure, decorator, defaultProps({ defaultColors }));
+> = compose(pure, decorator, defaultProps(defaultColors));
 
 const SealIcon = hoc(
   ({
