@@ -2,6 +2,7 @@ import { StyledComponentProps } from '@material-ui/core/styles';
 import * as React from 'react';
 
 import { withStylesPure } from '..';
+import { SealIconColors } from '../../dist/components/SealIcon';
 import { ANSWER_ACCEPTED } from '../db-results';
 import { CitationState } from '../lib/state';
 import Seal from './Seal';
@@ -10,7 +11,7 @@ import { extractColors } from './SealIcon';
 type Props = CitationState & {
   onMouseEnter?: React.MouseEventHandler<any>;
   onMouseLeave?: React.MouseEventHandler<any>;
-};
+} & Partial<SealIconColors>;
 
 export const VALID_BG_COLOR = 'hsla(120, 100%, 90%, 1)';
 export const INVALID_BG_COLOR = 'hsla(0, 90%, 90%, 1)';
