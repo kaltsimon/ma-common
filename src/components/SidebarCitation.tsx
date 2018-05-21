@@ -45,6 +45,13 @@ const SidebarCitation = decorate<Props>(props => {
       button
       onMouseEnter={onMouseEnter || (() => {})}
       onMouseLeave={onMouseLeave || (() => {})}
+      className={
+        hover
+          ? validationResult && validationResult.type === ANSWER_ACCEPTED
+            ? classes.valid
+            : classes.invalid
+          : ''
+      }
     >
       {/* TODO: more states */}
       <ListItemIcon>
@@ -55,13 +62,7 @@ const SidebarCitation = decorate<Props>(props => {
         />
       </ListItemIcon>
       <ListItemText
-        className={
-          hover
-            ? validationResult && validationResult.type === ANSWER_ACCEPTED
-              ? classes.valid
-              : classes.invalid
-            : ''
-        }
+
       >
         {text}
       </ListItemText>

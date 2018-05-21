@@ -23,8 +23,11 @@ export default class App extends Component {
               requestTimestamp: new Date().toJSON(),
               responseTimestamp: new Date().toJSON(),
             },
+            hover: true,
           },
         }}
+        enterCitation={() => {}}
+        leaveCitation={() => {}}
       />
     );
   }
