@@ -22,8 +22,8 @@ export type SidebarProps = {
   citations: CitationListState;
   windowId: number;
   tabId: number;
-  enterCitation?: EventHandler;
-  leaveCitation?: EventHandler;
+  enterCitation: EventHandler;
+  leaveCitation: EventHandler;
 };
 
 const Sidebar = ({
@@ -33,8 +33,6 @@ const Sidebar = ({
   enterCitation,
   leaveCitation,
 }: SidebarProps) => {
-  enterCitation = enterCitation || (() => {});
-  leaveCitation = leaveCitation || (() => {});
   return (
     <div>
       <p>
