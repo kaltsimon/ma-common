@@ -1,6 +1,6 @@
 {
   "name": "ma-common",
-  "version": "3.0.0",
+  "version": "3.0.0-alpha2",
   "description": "",
   "author": "kaltsimon",
   "license": "MIT",
@@ -9,7 +9,9 @@
   "module": "build/es/index.js",
   "jsnext:main": "build/es/index.js",
   "types": "build/es/index.d.ts",
-  "files": ["build"],
+  "files": [
+    "build"
+  ],
   "scripts": {
     "test": "cross-env CI=1 react-scripts-ts test --env=jsdom",
     "test:watch": "react-scripts-ts test --env=jsdom",
