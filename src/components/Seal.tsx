@@ -2,18 +2,19 @@ import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
 import * as React from 'react';
 import { pure } from 'recompose';
 
-import { SealIconColors } from '../../dist/components/SealIcon';
 import { ValidationResult } from '../db-results';
-import SealIcon, { extractColors } from './SealIcon';
+import SealIcon from './SealIcon';
 
 export interface SealOwnProps {
   hash: string;
   validationResult?: ValidationResult;
   onMouseEnter?: React.MouseEventHandler<any>;
   onMouseLeave?: React.MouseEventHandler<any>;
+  title?: string;
+  className?: string;
 }
 
-export type SealProps = SealOwnProps & Partial<SealIconColors>;
+export type SealProps = SealOwnProps;
 
 const decorate = withStyles({
   seal: {
@@ -28,27 +29,32 @@ export { StyledComponentProps };
 const Seal = decorate<SealProps>(
   pure(props => {
     const {
-      /* hash, */
+      hash: _,
       validationResult,
       classes,
+      title: titleProp,
       onMouseEnter,
       onMouseLeave,
+      ...rest
     } = props;
     if (!validationResult) {
       return null;
     }
+    // const { colors } = extractColors(props);
 
-    const { colors } = extractColors(props);
+    const title =
+      titleProp ||
+      `Zitatstatus: ${(validationResult && validationResult.type) ||
+        'unbekannt'}.`;
 
     return (
       <span
         onMouseEnter={onMouseEnter || (() => {})}
         onMouseLeave={onMouseLeave || (() => {})}
-        title={`Zitatstatus: ${(validationResult && validationResult.type) ||
-          'unbekannt'}.`}
+        title={title}
         className={classes.seal}
       >
-        <SealIcon validationResult={validationResult} {...colors} />
+        <SealIcon validationResult={validationResult} {...rest} />
       </span>
     );
   })

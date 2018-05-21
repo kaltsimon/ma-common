@@ -1,11 +1,9 @@
 import * as React from 'react';
 
-import { addClass, removeClass } from '../lib/classList';
 import { ANSWER_ACCEPTED, ValidationResult } from '../db-results';
-import Seal from './Seal';
+import { addClass, removeClass } from '../lib/classList';
 import { info } from '../lib/util';
-import { SealIconColors } from '../../dist/components/SealIcon';
-import { extractColors } from './SealIcon';
+import Seal from './Seal';
 
 export interface SealContainerOwnProps {
   hash: string;
@@ -16,8 +14,7 @@ export interface SealContainerOwnProps {
   onMouseLeave?: React.MouseEventHandler<any>;
 }
 
-export type SealContainerProps = SealContainerOwnProps &
-  Partial<SealIconColors>;
+export type SealContainerProps = SealContainerOwnProps;
 
 export type State = SealContainerProps;
 
@@ -70,14 +67,12 @@ export default class SealContainer extends React.PureComponent<
 
   render() {
     const { hash, validationResult } = this.state;
-    const { colors } = extractColors(this.props);
     return (
       <Seal
         hash={hash}
         validationResult={validationResult}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
-        {...colors}
       />
     );
   }

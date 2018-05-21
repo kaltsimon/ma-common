@@ -1,19 +1,12 @@
-import { WithStyles, withStyles } from '@material-ui/core/styles';
-import { StyledComponentProps } from '@material-ui/core/styles/withStyles';
+import { StyledComponentProps } from '@material-ui/core/styles';
 import {
   ErrorOutline,
   HourglassEmpty,
   NotInterested,
   VerifiedUser,
 } from '@material-ui/icons';
+import * as classNames from 'classnames';
 import * as React from 'react';
-import {
-  ComponentEnhancer,
-  compose,
-  defaultProps,
-  Omit,
-  pure,
-} from 'recompose';
 
 import {
   ANSWER_ACCEPTED,
@@ -24,86 +17,58 @@ import {
   NO_ANSWER_YET,
   ValidationResult,
 } from '../db-results';
+import { withStylesPure } from '../lib/util';
 
 export interface SealIconProps {
   validationResult?: ValidationResult;
+  className?: string;
+  onMouseEnter?: React.MouseEventHandler<any>;
+  onMouseLeave?: React.MouseEventHandler<any>;
+  title?: string;
 }
 
-export interface SealIconColors {
-  validColor: string;
-  invalidColor: string;
-  indeterminateColor: string;
-}
+export { StyledComponentProps };
 
-const defaultColors: SealIconColors = {
-  validColor: 'hsla(120, 90%, 30%, 1)',
-  invalidColor: 'hsla(0, 100%, 70%, 1)',
-  indeterminateColor: '#cccccc',
-};
-
-export function extractColors<T extends Partial<SealIconColors>>(
-  props: T
-): { colors: Partial<SealIconColors>; rest: Omit<T, keyof SealIconColors> } {
-  const {
-    validColor,
-    invalidColor,
-    indeterminateColor,
-    ...rest
-  } = props as SealIconColors & object;
-  return {
-    colors: {
-      validColor,
-      invalidColor,
-      indeterminateColor,
-    },
-    rest: rest as Omit<T, keyof SealIconColors>,
-  };
-}
-
-const decorator = withStyles({
+const decorator = withStylesPure(theme => ({
   root: {
     fontSize: 18,
   },
-});
+  valid: {
+    color: (theme.seal && theme.seal.valid) || 'hsla(120, 90%, 30%, 1)',
+  },
+  invalid: {
+    color: (theme.seal && theme.seal.invalid) || 'hsla(0, 100%, 70%, 1)',
+  },
+  indeterminate: {
+    color: (theme.seal && theme.seal.indeterminate) || 'rgba(0, 0, 0, 0.54)',
+  },
+}));
 
-const hoc: ComponentEnhancer<
-  SealIconProps & SealIconColors & WithStyles<'root'>,
-  SealIconProps & Partial<SealIconColors> & StyledComponentProps<'root'>
-> = compose(pure, decorator, defaultProps(defaultColors));
-
-const SealIcon = hoc(
-  ({
-    validationResult,
-    classes,
-    validColor,
-    invalidColor,
-    indeterminateColor,
-  }) => {
+const SealIcon = decorator<SealIconProps>(
+  ({ validationResult, classes, className: _, ...rest }) => {
     if (!validationResult) {
       return null;
     }
 
+    const className = classNames(classes.root, {
+      [classes.valid]: validationResult.type === ANSWER_ACCEPTED,
+      [classes.invalid]:
+        [ANSWER_REJECTED, ID_INVALID, HASH_INVALID].indexOf(
+          validationResult.type
+        ) !== -1,
+      [classes.indeterminate]: validationResult.type === NO_ANSWER_YET,
+    });
+
     switch (validationResult.type) {
       case ANSWER_ACCEPTED:
-        return (
-          <VerifiedUser className={classes.root} nativeColor={validColor} />
-        );
+        return <VerifiedUser className={className} {...rest} />;
       case ID_INVALID:
       case HASH_INVALID:
-        return (
-          <ErrorOutline className={classes.root} nativeColor={invalidColor} />
-        );
+        return <ErrorOutline className={className} {...rest} />;
       case NO_ANSWER_YET:
-        return (
-          <HourglassEmpty
-            className={classes.root}
-            nativeColor={indeterminateColor}
-          />
-        );
+        return <HourglassEmpty className={className} {...rest} />;
       case ANSWER_REJECTED:
-        return (
-          <NotInterested className={classes.root} nativeColor={invalidColor} />
-        );
+        return <NotInterested className={className} {...rest} />;
       case HASH_DOESNT_EXIST:
       default:
         return null;

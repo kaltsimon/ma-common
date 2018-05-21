@@ -4,8 +4,8 @@
 # dependencies
 node_modules
 
-# builds
-build
+# dist
+dist/
 
 # misc
 .DS_Store

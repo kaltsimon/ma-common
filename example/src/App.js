@@ -1,6 +1,5 @@
+import { ANSWER_ACCEPTED, Sidebar } from 'ma-common';
 import React, { Component } from 'react';
-
-import { SealContainer } from 'ma-common';
 
 export default class App extends Component {
   state = {
@@ -9,24 +8,24 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        <span
-          x-cite-d="Abcdefg"
-          ref={domElement =>
-            domElement &&
-            !this.state.domElement &&
-            this.setState({ domElement })
-          }
-        >
-          Test text
-        </span>
-        <SealContainer
-          hash="Abcdefg"
-          text="Test text"
-          domElement={this.state.domElement}
-          validationResult={{ type: 'ID_INVALID', id: 'a' }}
-        />
-      </div>
+      <Sidebar
+        windowId={0}
+        tabId={0}
+        citations={{
+          ID: {
+            id: 'ID',
+            hash: 'pqeihpwoen',
+            text: 'My beautiful text',
+            valid: true,
+            validationResult: {
+              type: ANSWER_ACCEPTED,
+              id: 'ID',
+              requestTimestamp: new Date().toJSON(),
+              responseTimestamp: new Date().toJSON(),
+            },
+          },
+        }}
+      />
     );
   }
 }

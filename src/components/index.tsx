@@ -1,3 +1,4 @@
+import DefaultPaper from './DefaultPaper';
 import Divider from './Divider';
 import FourOhFour from './FourOhFour';
 import Headline from './Headline';
@@ -9,7 +10,6 @@ import SidebarCitation from './SidebarCitation';
 import SidebarContainer from './SidebarContainer';
 import Subheading from './Subheading';
 import TypographyWithMargin from './TypographyWithMargin';
-import DefaultPaper from './DefaultPaper';
 
 export {
   Seal,

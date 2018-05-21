@@ -5,6 +5,8 @@ import { pure } from 'recompose';
 
 import { CitationListState, CitationState } from '../lib/state';
 import SidebarCitation from './SidebarCitation';
+import { Subheading } from '.';
+import { List } from '@material-ui/core';
 
 // import { info } from '../lib/util';
 // const log = info(`[SidebarComponent]`);
@@ -20,8 +22,8 @@ export type SidebarProps = {
   citations: CitationListState;
   windowId: number;
   tabId: number;
-  enterCitation: EventHandler;
-  leaveCitation: EventHandler;
+  enterCitation?: EventHandler;
+  leaveCitation?: EventHandler;
 };
 
 const Sidebar = ({
@@ -38,17 +40,17 @@ const Sidebar = ({
       <p>
         This is the sidebar, currently on window {windowId} tab {tabId}.
       </p>
-      <p>Current citation states:</p>
-      <ul>
+      <Subheading>Current citation states:</Subheading>
+      <List>
         {Object.values(citations).map(props => (
           <SidebarCitation
             {...props}
             key={props.id}
-            onMouseEnter={() => enterCitation({ windowId, tabId, ...props })}
-            onMouseLeave={() => leaveCitation({ windowId, tabId, ...props })}
+            onMouseEnter={() => enterCitation!({ windowId, tabId, ...props })}
+            onMouseLeave={() => leaveCitation!({ windowId, tabId, ...props })}
           />
         ))}
-      </ul>
+      </List>
     </div>
   );
 };
