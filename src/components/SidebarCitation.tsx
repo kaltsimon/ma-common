@@ -42,7 +42,6 @@ const SidebarCitation = decorate<Props>(props => {
   const sealClasses = { seal: classes.seal };
   return (
     <ListItem
-      button
       onMouseEnter={onMouseEnter || (() => {})}
       onMouseLeave={onMouseLeave || (() => {})}
       className={
@@ -61,11 +60,7 @@ const SidebarCitation = decorate<Props>(props => {
           classes={sealClasses}
         />
       </ListItemIcon>
-      <ListItemText
-
-      >
-        {text}
-      </ListItemText>
+      <ListItemText>{text}</ListItemText>
     </ListItem>
   );
 });
