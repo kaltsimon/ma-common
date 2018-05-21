@@ -8,7 +8,7 @@
   "main": "build/cjs/index.js",
   "module": "build/es/index.js",
   "jsnext:main": "build/es/index.js",
-  "types": "dist/es/index.d.ts",
+  "types": "build/es/index.d.ts",
   "scripts": {
     "test": "cross-env CI=1 react-scripts-ts test --env=jsdom",
     "test:watch": "react-scripts-ts test --env=jsdom",
