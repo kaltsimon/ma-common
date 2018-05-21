@@ -10,6 +10,7 @@ import Seal from './Seal';
 type Props = CitationState & {
   onMouseEnter?: React.MouseEventHandler<any>;
   onMouseLeave?: React.MouseEventHandler<any>;
+  title?: string;
 };
 
 export const VALID_BG_COLOR = 'hsla(120, 100%, 90%, 1)';
@@ -38,6 +39,7 @@ const SidebarCitation = decorate<Props>(props => {
     onMouseEnter,
     onMouseLeave,
     classes,
+    title,
   } = props;
   const sealClasses = { seal: classes.seal };
   return (
@@ -52,12 +54,12 @@ const SidebarCitation = decorate<Props>(props => {
           : ''
       }
     >
-      {/* TODO: more states */}
       <ListItemIcon>
         <Seal
           hash={hash}
           validationResult={validationResult}
           classes={sealClasses}
+          title={title}
         />
       </ListItemIcon>
       <ListItemText>{text}</ListItemText>
