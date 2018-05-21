@@ -4,7 +4,17 @@ import React, { Component } from 'react';
 export default class App extends Component {
   state = {
     domElement: null,
+    hover: false,
   };
+
+  hoverIn = () =>
+    this.setState(() => ({
+      hover: true,
+    }));
+  hoverOut = () =>
+    this.setState(() => ({
+      hover: false,
+    }));
 
   render() {
     return (
@@ -23,11 +33,11 @@ export default class App extends Component {
               requestTimestamp: new Date().toJSON(),
               responseTimestamp: new Date().toJSON(),
             },
-            hover: true,
+            hover: this.state.hover,
           },
         }}
-        enterCitation={() => {}}
-        leaveCitation={() => {}}
+        enterCitation={this.hoverIn}
+        leaveCitation={this.hoverOut}
       />
     );
   }
