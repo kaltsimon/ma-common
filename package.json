@@ -10,7 +10,7 @@
   "jsnext:main": "build/es/index.js",
   "types": "build/es/index.d.ts",
   "files": [
-    "build",
+    "build/*",
     "yarn.lock"
   ],
   "scripts": {
