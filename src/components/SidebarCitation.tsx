@@ -2,7 +2,7 @@ import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { StyledComponentProps } from '@material-ui/core/styles';
 import * as React from 'react';
 
-import { ANSWER_ACCEPTED } from '../db-results';
+import { ANSWER_ACCEPTED, ValidationResult } from '../db-results';
 import { CitationState } from '../lib/state';
 import { withStylesPure } from '../lib/util';
 import Seal from './Seal';
@@ -27,6 +27,13 @@ const decorate = withStylesPure({
     margin: 0,
   },
 });
+
+const getDefaultTitle = (
+  titleProp?: string,
+  validationResult?: ValidationResult
+) =>
+  titleProp ||
+  `Zitatstatus: ${(validationResult && validationResult.type) || 'unbekannt'}.`;
 
 export { StyledComponentProps };
 
@@ -53,13 +60,14 @@ const SidebarCitation = decorate<Props>(props => {
             : classes.invalid
           : ''
       }
+      title={getDefaultTitle(title)}
     >
       <ListItemIcon>
         <Seal
           hash={hash}
           validationResult={validationResult}
           classes={sealClasses}
-          title={title}
+          title=""
         />
       </ListItemIcon>
       <ListItemText>{text}</ListItemText>
