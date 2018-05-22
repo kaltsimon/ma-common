@@ -9,6 +9,7 @@ export interface SealContainerOwnProps {
   hash: string;
   text: string;
   domElement: HTMLElement;
+  title?: string;
   validationResult?: ValidationResult;
   onMouseEnter?: React.MouseEventHandler<any>;
   onMouseLeave?: React.MouseEventHandler<any>;
@@ -66,13 +67,14 @@ export default class SealContainer extends React.PureComponent<
   };
 
   render() {
-    const { hash, validationResult } = this.state;
+    const { hash, validationResult, title } = this.state;
     return (
       <Seal
         hash={hash}
         validationResult={validationResult}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
+        title={title}
       />
     );
   }
