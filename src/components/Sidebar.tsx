@@ -25,7 +25,7 @@ export type SidebarProps = {
   tabId: number;
   enterCitation: EventHandler;
   leaveCitation: EventHandler;
-  title?: string | ((result?: ValidationResult) => string);
+  title: string | ((result?: ValidationResult) => string) | null;
 };
 
 const Sidebar = ({
@@ -49,7 +49,7 @@ const Sidebar = ({
             key={props.id}
             onMouseEnter={() => enterCitation!({ windowId, tabId, ...props })}
             onMouseLeave={() => leaveCitation!({ windowId, tabId, ...props })}
-            title={title}
+            title={title || undefined}
           />
         ))}
       </List>
