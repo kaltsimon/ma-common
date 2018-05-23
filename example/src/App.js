@@ -38,6 +38,7 @@ export default class App extends Component {
         }}
         enterCitation={this.hoverIn}
         leaveCitation={this.hoverOut}
+        title={result => result.type}
       />
     );
   }

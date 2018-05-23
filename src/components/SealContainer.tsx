@@ -9,7 +9,7 @@ export interface SealContainerOwnProps {
   hash: string;
   text: string;
   domElement: HTMLElement;
-  title?: string;
+  title?: string | ((props: ValidationResult) => string);
   validationResult?: ValidationResult;
   onMouseEnter?: React.MouseEventHandler<any>;
   onMouseLeave?: React.MouseEventHandler<any>;

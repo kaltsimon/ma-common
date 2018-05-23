@@ -5,12 +5,12 @@ import * as React from 'react';
 import { ANSWER_ACCEPTED, ValidationResult } from '../db-results';
 import { CitationState } from '../lib/state';
 import { withStylesPure } from '../lib/util';
-import Seal from './Seal';
+import Seal, { defaultTitleFunction } from './Seal';
 
 type Props = CitationState & {
   onMouseEnter?: React.MouseEventHandler<any>;
   onMouseLeave?: React.MouseEventHandler<any>;
-  title?: string;
+  title?: string | ((result?: ValidationResult) => string);
 };
 
 export const VALID_BG_COLOR = 'hsla(120, 100%, 90%, 1)';
@@ -28,13 +28,6 @@ const decorate = withStylesPure({
   },
 });
 
-const getDefaultTitle = (
-  titleProp?: string,
-  validationResult?: ValidationResult
-) =>
-  titleProp ||
-  `Zitatstatus: ${(validationResult && validationResult.type) || 'unbekannt'}.`;
-
 export { StyledComponentProps };
 
 const SidebarCitation = decorate<Props>(props => {
@@ -46,9 +39,10 @@ const SidebarCitation = decorate<Props>(props => {
     onMouseEnter,
     onMouseLeave,
     classes,
-    title,
+    title: titleProp,
   } = props;
   const sealClasses = { seal: classes.seal };
+  const title = titleProp || defaultTitleFunction;
   return (
     <ListItem
       onMouseEnter={onMouseEnter || (() => {})}
@@ -60,14 +54,14 @@ const SidebarCitation = decorate<Props>(props => {
             : classes.invalid
           : ''
       }
-      title={getDefaultTitle(title)}
+      title={typeof title === 'function' ? title(validationResult) : title}
     >
       <ListItemIcon>
         <Seal
           hash={hash}
           validationResult={validationResult}
           classes={sealClasses}
-          title=""
+          title={title}
         />
       </ListItemIcon>
       <ListItemText>{text}</ListItemText>

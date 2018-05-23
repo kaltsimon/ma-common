@@ -9,6 +9,7 @@ import { Subheading } from '.';
 import { List } from '@material-ui/core';
 
 // import { info } from '../lib/util';
+import { ValidationResult } from '../db-results';
 // const log = info(`[SidebarComponent]`);
 
 export type EventHandlerData = CitationState & {
@@ -24,6 +25,7 @@ export type SidebarProps = {
   tabId: number;
   enterCitation: EventHandler;
   leaveCitation: EventHandler;
+  title?: string | ((result?: ValidationResult) => string);
 };
 
 const Sidebar = ({
@@ -32,6 +34,7 @@ const Sidebar = ({
   citations,
   enterCitation,
   leaveCitation,
+  title,
 }: SidebarProps) => {
   return (
     <div>
@@ -46,6 +49,7 @@ const Sidebar = ({
             key={props.id}
             onMouseEnter={() => enterCitation!({ windowId, tabId, ...props })}
             onMouseLeave={() => leaveCitation!({ windowId, tabId, ...props })}
+            title={title}
           />
         ))}
       </List>

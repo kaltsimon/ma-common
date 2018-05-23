@@ -10,7 +10,7 @@ export interface SealOwnProps {
   validationResult?: ValidationResult;
   onMouseEnter?: React.MouseEventHandler<any>;
   onMouseLeave?: React.MouseEventHandler<any>;
-  title?: string;
+  title?: string | ((result?: ValidationResult) => string);
   className?: string;
 }
 
@@ -23,6 +23,9 @@ const decorate = withStyles({
     display: 'block',
   },
 });
+
+export const defaultTitleFunction = (result?: ValidationResult) =>
+  `Zitatstatus: ${(result && result.type) || 'unbekannt'}.`;
 
 export { StyledComponentProps };
 
@@ -42,16 +45,13 @@ const Seal = decorate<SealProps>(
     }
     // const { colors } = extractColors(props);
 
-    const title =
-      titleProp ||
-      `Zitatstatus: ${(validationResult && validationResult.type) ||
-        'unbekannt'}.`;
+    const title = titleProp || defaultTitleFunction;
 
     return (
       <span
         onMouseEnter={onMouseEnter || (() => {})}
         onMouseLeave={onMouseLeave || (() => {})}
-        title={title}
+        title={typeof title === 'function' ? title(validationResult) : title}
         className={classes.seal}
       >
         <SealIcon validationResult={validationResult} {...rest} />
