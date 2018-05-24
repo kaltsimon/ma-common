@@ -16,7 +16,7 @@ type Props = CitationState & {
 export const VALID_BG_COLOR = 'hsla(120, 100%, 90%, 1)';
 export const INVALID_BG_COLOR = 'hsla(0, 90%, 90%, 1)';
 
-const decorate = withStylesPure({
+const decorate = withStylesPure(theme => ({
   valid: {
     backgroundColor: VALID_BG_COLOR,
   },
@@ -26,7 +26,10 @@ const decorate = withStylesPure({
   seal: {
     margin: 0,
   },
-});
+  itemText: {
+    ...theme.typography.body1,
+  },
+}));
 
 export { StyledComponentProps };
 
@@ -64,7 +67,9 @@ const SidebarCitation = decorate<Props>(props => {
           title={title}
         />
       </ListItemIcon>
-      <ListItemText>{text}</ListItemText>
+      <ListItemText classes={{ primary: classes.itemText }}>
+        {text}
+      </ListItemText>
     </ListItem>
   );
 });
