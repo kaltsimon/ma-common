@@ -5,7 +5,7 @@ import Headline from './Headline';
 import Seal from './Seal';
 import SealContainer from './SealContainer';
 import SealIcon from './SealIcon';
-import Sidebar from './Sidebar';
+import Sidebar, { EventHandler, EventHandlerData } from './Sidebar';
 import SidebarCitation from './SidebarCitation';
 import Subheading from './Subheading';
 import Title from './Title';
@@ -22,6 +22,8 @@ export {
   Title,
   TypographyWithMargin,
   Sidebar,
+  EventHandler,
+  EventHandlerData,
   SidebarCitation,
   DefaultPaper,
 };
