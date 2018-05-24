@@ -29,7 +29,7 @@ export interface ISidebarProps extends ISidebarBaseProps {
 }
 
 export interface IChildrenProp {
-  children: React.ReactNode | ((props: ISidebarBaseProps) => React.ReactNode);
+  children?: React.ReactNode | ((props: ISidebarBaseProps) => React.ReactNode);
 }
 
 const decorate = withStylesPure(() => ({
