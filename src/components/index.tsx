@@ -9,6 +9,7 @@ import Sidebar from './Sidebar';
 import SidebarCitation from './SidebarCitation';
 import SidebarContainer from './SidebarContainer';
 import Subheading from './Subheading';
+import Title from './Title';
 import TypographyWithMargin from './TypographyWithMargin';
 
 export {
@@ -19,6 +20,7 @@ export {
   FourOhFour,
   Headline,
   Subheading,
+  Title,
   TypographyWithMargin,
   Sidebar,
   SidebarContainer,

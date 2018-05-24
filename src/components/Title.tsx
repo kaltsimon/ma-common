@@ -4,10 +4,10 @@ import { pure } from 'recompose';
 
 import TypographyWithMargin from './TypographyWithMargin';
 
-const Subheading = ({ children, ...rest }: TypographyProps) => (
-  <TypographyWithMargin component="h3" variant="subheading" {...rest}>
+const Title = pure(({ children, ...rest }: TypographyProps) => (
+  <TypographyWithMargin component="h2" variant="title" {...rest}>
     {children}
   </TypographyWithMargin>
-);
+));
 
-export default pure(Subheading);
+export default Title;
