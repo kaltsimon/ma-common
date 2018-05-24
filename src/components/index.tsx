@@ -7,7 +7,6 @@ import SealContainer from './SealContainer';
 import SealIcon from './SealIcon';
 import Sidebar from './Sidebar';
 import SidebarCitation from './SidebarCitation';
-import SidebarContainer from './SidebarContainer';
 import Subheading from './Subheading';
 import Title from './Title';
 import TypographyWithMargin from './TypographyWithMargin';
@@ -23,7 +22,6 @@ export {
   Title,
   TypographyWithMargin,
   Sidebar,
-  SidebarContainer,
   SidebarCitation,
   DefaultPaper,
 };

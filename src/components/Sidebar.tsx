@@ -1,16 +1,13 @@
-import '../lib/object.values';
+import 'core-js/fn/object/values';
 
+import List from '@material-ui/core/List';
+import { StyledComponentProps } from '@material-ui/core/styles';
 import * as React from 'react';
-import { pure } from 'recompose';
 
-import { CitationListState, CitationState } from '../lib/state';
-import SidebarCitation from './SidebarCitation';
-import { Subheading } from '.';
-import { List } from '@material-ui/core';
-
-// import { info } from '../lib/util';
 import { ValidationResult } from '../db-results';
-// const log = info(`[SidebarComponent]`);
+import { CitationListState, CitationState } from '../lib/state';
+import { withStylesPure } from '../lib/util';
+import SidebarCitation from './SidebarCitation';
 
 export type EventHandlerData = CitationState & {
   windowId: number;
@@ -19,42 +16,73 @@ export type EventHandlerData = CitationState & {
 
 export type EventHandler = (data: EventHandlerData) => void;
 
-export type SidebarProps = {
+export interface ISidebarBaseProps {
   citations: CitationListState;
   windowId: number;
   tabId: number;
+}
+
+export interface ISidebarProps extends ISidebarBaseProps {
   enterCitation: EventHandler;
   leaveCitation: EventHandler;
-  title: string | ((result?: ValidationResult) => string) | null;
-};
+  title?: string | ((result?: ValidationResult) => string);
+}
 
-const Sidebar = ({
-  windowId,
-  tabId,
-  citations,
-  enterCitation,
-  leaveCitation,
-  title,
-}: SidebarProps) => {
-  return (
-    <div>
-      <p>
-        This is the sidebar, currently on window {windowId} tab {tabId}.
-      </p>
-      <Subheading>Current citation states:</Subheading>
-      <List>
-        {Object.values(citations).map(props => (
-          <SidebarCitation
-            {...props}
-            key={props.id}
-            onMouseEnter={() => enterCitation!({ windowId, tabId, ...props })}
-            onMouseLeave={() => leaveCitation!({ windowId, tabId, ...props })}
-            title={title || undefined}
-          />
-        ))}
-      </List>
-    </div>
-  );
-};
+export interface IChildrenProp {
+  children: React.ReactNode | ((props: ISidebarBaseProps) => React.ReactNode);
+}
 
-export default pure(Sidebar);
+const decorate = withStylesPure(() => ({
+  valid: {
+    backgroundColor: '#e0e0e0',
+  },
+  invalid: {
+    backgroundColor: '#e0e0e0',
+  },
+  listRoot: {},
+}));
+
+export { StyledComponentProps };
+
+const Sidebar = decorate<ISidebarProps & IChildrenProp>(
+  ({
+    windowId,
+    tabId,
+    citations,
+    enterCitation,
+    leaveCitation,
+    classes: classesProp,
+    title,
+    children,
+  }) => {
+    const enter = (props: CitationState) => () =>
+      enterCitation({ windowId, tabId, ...props });
+    const leave = (props: CitationState) => () =>
+      leaveCitation({ windowId, tabId, ...props });
+    const array = (citations && Object.values(citations)) || [];
+    const { listRoot: root, ...classes } = classesProp;
+    return (
+      <div className={root}>
+        {typeof children === 'function'
+          ? children({ windowId, tabId, citations })
+          : children}
+        {array.length > 0 && (
+          <List>
+            {array.map(props => (
+              <SidebarCitation
+                {...props}
+                key={props.id}
+                onMouseEnter={enter(props)}
+                onMouseLeave={leave(props)}
+                classes={classes}
+                title={title}
+              />
+            ))}
+          </List>
+        )}
+      </div>
+    );
+  }
+);
+
+export default Sidebar;
