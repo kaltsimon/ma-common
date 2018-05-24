@@ -14,7 +14,7 @@ export type EventHandlerData = CitationState & {
   tabId: number;
 };
 
-export type EventHandler = (data: EventHandlerData) => void;
+export type EventHandler = (data: EventHandlerData) => any;
 
 export interface ISidebarBaseProps {
   citations: CitationListState;
