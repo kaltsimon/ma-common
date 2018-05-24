@@ -29,6 +29,10 @@ const decorate = withStylesPure(theme => ({
   itemText: {
     ...theme.typography.body1,
   },
+  itemGutters: {
+    paddingLeft: 12,
+    paddingRight: 12,
+  },
 }));
 
 export { StyledComponentProps };
@@ -58,6 +62,7 @@ const SidebarCitation = decorate<Props>(props => {
           : ''
       }
       title={typeof title === 'function' ? title(validationResult) : title}
+      classes={{ gutters: classes.itemGutters }}
     >
       <ListItemIcon>
         <Seal
