@@ -15,6 +15,7 @@ export interface SealContainerOwnProps {
   onMouseLeave?: React.MouseEventHandler<any>;
   invalidClassName?: string;
   hoverClassName?: string;
+  preferState?: boolean;
 }
 
 export type SealContainerProps = SealContainerOwnProps;
@@ -37,7 +38,7 @@ export default class SealContainer extends React.PureComponent<
   }
 
   componentDidUpdate() {
-    if (this.state !== this.props) {
+    if (!this.props.preferState && this.state !== this.props) {
       log(`componentDidUpdate, props changed, setting state`);
       this.setState(this.props);
     }
