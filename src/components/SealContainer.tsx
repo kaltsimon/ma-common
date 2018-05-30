@@ -13,6 +13,7 @@ export interface SealContainerOwnProps {
   validationResult?: ValidationResult;
   onMouseEnter?: React.MouseEventHandler<any>;
   onMouseLeave?: React.MouseEventHandler<any>;
+  invalidClassName?: string;
 }
 
 export type SealContainerProps = SealContainerOwnProps;
@@ -43,12 +44,14 @@ export default class SealContainer extends React.PureComponent<
   }
 
   // TODO: decide based on validationResult
-  updateCitationValidity({ validationResult, domElement }: State = this.state) {
+  updateCitationValidity(
+    { validationResult, domElement, invalidClassName }: State = this.state
+  ) {
     log(`updateCitationValidity:`, validationResult, domElement);
     if (validationResult && validationResult.type === ANSWER_ACCEPTED) {
-      removeClass(domElement, 'invalid');
+      removeClass(domElement, invalidClassName || 'invalid');
     } else {
-      addClass(domElement, 'invalid');
+      addClass(domElement, invalidClassName || 'invalid');
     }
   }
 
