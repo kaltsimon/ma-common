@@ -1,6 +1,15 @@
 import * as React from 'react';
 
-import { ANSWER_ACCEPTED, ValidationResult } from '../db-results';
+import {
+  ANSWER_ACCEPTED,
+  ValidationResult,
+  NO_ANSWER_YET,
+  HASH_DOESNT_EXIST,
+  HASH_INVALID,
+  ID_INVALID,
+  DB_ERROR,
+  ANSWER_REJECTED,
+} from '../db-results';
 import { addClass, removeClass } from '../lib/classList';
 import { info } from '../lib/util';
 import Seal from './Seal';
@@ -14,7 +23,9 @@ export interface SealContainerOwnProps {
   onMouseEnter?: React.MouseEventHandler<any>;
   onMouseLeave?: React.MouseEventHandler<any>;
   invalidClassName?: string;
+  validClassName?: string;
   hoverClassName?: string;
+  pendingClassName?: string;
   preferState?: boolean;
 }
 
@@ -45,15 +56,48 @@ export default class SealContainer extends React.PureComponent<
     this.updateCitationValidity();
   }
 
+  classNameForValidationResult() {
+    if (this.state.validationResult) {
+      switch (this.state.validationResult.type) {
+        case ANSWER_ACCEPTED:
+          return this.state.validClassName || 'valid';
+        case NO_ANSWER_YET:
+          return this.state.pendingClassName || 'pending';
+        case DB_ERROR:
+        case HASH_INVALID:
+        case ID_INVALID:
+        case ANSWER_REJECTED:
+          return this.state.invalidClassName || 'invalid';
+        case HASH_DOESNT_EXIST:
+        default:
+          return undefined;
+      }
+    }
+    return undefined;
+  }
+
   // TODO: decide based on validationResult
   updateCitationValidity(
-    { validationResult, domElement, invalidClassName }: State = this.state
+    {
+      validationResult,
+      domElement,
+      invalidClassName,
+      pendingClassName,
+      validClassName,
+    }: State = this.state
   ) {
     log(`updateCitationValidity:`, validationResult, domElement);
-    if (validationResult && validationResult.type === ANSWER_ACCEPTED) {
-      removeClass(domElement, invalidClassName || 'invalid');
-    } else {
-      addClass(domElement, invalidClassName || 'invalid');
+
+    removeClass(
+      domElement,
+      invalidClassName || 'invalid',
+      pendingClassName || 'pending',
+      validClassName || 'valid'
+    );
+
+    const className = this.classNameForValidationResult();
+    if (className) {
+      addClass(domElement, className);
     }
   }
 

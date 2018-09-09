@@ -11,10 +11,10 @@ export const getClassList = (node: Element | null) => node && node.classList;
  * @param node an element
  * @param className the name of the class to add
  */
-export const addClass = (node: Element | null, className: string) => {
+export const addClass = (node: Element | null, ...className: string[]) => {
   const classList = getClassList(node);
   if (classList) {
-    classList.add(className);
+    classList.add(...className);
   }
 };
 
@@ -24,9 +24,9 @@ export const addClass = (node: Element | null, className: string) => {
  * @param node an element
  * @param className the name of the class to remove
  */
-export const removeClass = (node: Element | null, className: string) => {
+export const removeClass = (node: Element | null, ...className: string[]) => {
   const classList = getClassList(node);
   if (classList) {
-    classList.remove(className);
+    classList.remove(...className);
   }
 };

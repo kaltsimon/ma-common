@@ -4,7 +4,7 @@ import List from '@material-ui/core/List';
 import { StyledComponentProps } from '@material-ui/core/styles';
 import * as React from 'react';
 
-import { ValidationResult } from '../db-results';
+import { ValidationResult, HASH_DOESNT_EXIST } from '../db-results';
 import { CitationListState, CitationState } from '../lib/state';
 import { withStylesPure } from '../lib/util';
 import SidebarCitation from './SidebarCitation';
@@ -68,16 +68,23 @@ const Sidebar = decorate<ISidebarProps & IChildrenProp>(
           : children}
         {array.length > 0 && (
           <List>
-            {array.map(props => (
-              <SidebarCitation
-                {...props}
-                key={props.id}
-                onMouseEnter={enter(props)}
-                onMouseLeave={leave(props)}
-                classes={classes}
-                title={title}
-              />
-            ))}
+            {array
+              .filter(
+                ({ valid, validationResult }) =>
+                  valid ||
+                  (validationResult &&
+                    validationResult.type !== HASH_DOESNT_EXIST)
+              )
+              .map(props => (
+                <SidebarCitation
+                  {...props}
+                  key={props.id}
+                  onMouseEnter={enter(props)}
+                  onMouseLeave={leave(props)}
+                  classes={classes}
+                  title={title}
+                />
+              ))}
           </List>
         )}
       </div>
